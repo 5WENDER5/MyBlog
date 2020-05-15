@@ -41,8 +41,8 @@
 <div class="ui attached pointing menu">
     <div class="ui container">
         <div class="right menu">
-            <a href="#" class="item">发布</a>
-            <a href="#" class="active teal item">列表</a>
+            <a href="#" th:href="@{/admin/blogs/input}" class="item">发布</a>
+            <a href="#" th:href="@{/admin/blogs}" class="active teal item">列表</a>
         </div>
     </div>
 </div>
@@ -96,6 +96,7 @@
                     <th>标题</th>
                     <th>类型</th>
                     <th>推荐</th>
+                    <th>状态</th>
                     <th>更新时间</th>
                     <th>操作</th>
                 </tr>
@@ -106,7 +107,7 @@
                     <td th:text="${blog.title}">springboot开发指南</td>
                     <td th:text="${blog.type.name}">springboot</td>
                     <td th:text="${blog.recommend} ? '是' : '否'">是</td>
-                    <td th:text="${blog.published} ? '草稿' : '发布'">草稿</td>
+                    <td th:text="${blog.published} ? '发布' : '草稿'">草稿</td>
                     <td th:text="${blog.updateTime}">2020-01-02 09:01</td>
                     <td>
                         <a href="#" th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui mini teal basic button">编辑</a>
