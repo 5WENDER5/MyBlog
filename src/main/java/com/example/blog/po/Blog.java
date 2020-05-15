@@ -15,6 +15,8 @@ public class Blog {
     private Long id;
 
     private String title;
+    @Basic(fetch = FetchType.LAZY) //懒加载只有使用的时候才用
+    @Lob //大字段
     private String content;
     private String firstPicture;
     private String flag;
@@ -40,6 +42,10 @@ public class Blog {
 
     @OneToMany(mappedBy = "blog")
     private List<Comment> comments = new ArrayList<>();
+
+    //这个注解就是表示这个属性不会入库
+    @Transient
+    private String tagIds;
 
     public Blog() {
     }
@@ -178,6 +184,14 @@ public class Blog {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public String getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(String tagIds) {
+        this.tagIds = tagIds;
     }
 
     @Override
