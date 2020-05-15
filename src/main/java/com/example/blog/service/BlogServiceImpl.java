@@ -8,7 +8,9 @@ import com.example.blog.vo.BlogQuery;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +55,18 @@ public class BlogServiceImpl implements BlogService{
         },pageable);
     }
 
+    @Override
+    public Page<Blog> listBlog(Pageable pageable) {
+        return blogRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Blog> listRecommendBlogTop(Integer size) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "updateTime");
+        Pageable pageable = PageRequest.of(0, size, sort);
+        return blogRepository.findTop(pageable);
+    }
+
     @Transactional
     @Override
     public Blog saveBlog(Blog blog) {
@@ -73,7 +87,9 @@ public class BlogServiceImpl implements BlogService{
         if(b == null) {
             throw new NotFoundException("该博客不存在");
         }
-        BeanUtils.copyProperties(b, blog);
+        //只copy blog里面属性值不为空的属性  后面的方法是看这个属性里面那些值为空返回一个String的数组
+        BeanUtils.copyProperties(blog, b, MyBeanUtils.getNullPropertyNames(blog));
+        b.setUpdateTime(new Date());
         return blogRepository.save(b);
     }
 
