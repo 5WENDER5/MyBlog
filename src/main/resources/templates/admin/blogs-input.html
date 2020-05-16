@@ -53,7 +53,7 @@
 <div class="m-container m-padded-tb-big">
     <div class="ui container">
         <form id="blog-form" action="#" th:object="${blog}" th:action="@{/admin/blogs}" method="post" class="ui form">
-            <input type="hidden" name="published">
+            <input type="hidden" name="published" th:value="*{published}">
             <input type="hidden" name="id" th:value="*{id}">
             <div class="required field">
                 <div class="ui left labeled input">
@@ -63,8 +63,8 @@
                         <div class="text">原创</div>
                         <div class="menu">
                             <div class="item" data-value="原创">原创</div>
-                            <div class="item" data-value="原创">转载</div>
-                            <div class="item" data-value="原创">收藏</div>
+                            <div class="item" data-value="转载">转载</div>
+                            <div class="item" data-value="收藏">收藏</div>
                         </div>
                     </div>
                     <input type="text" name="title" placeholder="标题" th:value="*{title}">

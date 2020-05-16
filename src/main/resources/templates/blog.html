@@ -15,7 +15,7 @@
 </head>
 <body>
 <!--导航开始--------------------------------------------->
-<nav class="ui inverted attached segment m-padded-mini m-shadow-small">
+<nav th:replace="_fragments :: menu(1)" class="ui inverted attached segment m-padded-mini m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">Blog</h2>
@@ -47,14 +47,14 @@
         <div class="ui top attached segment">
             <div class="ui horizontal link list">
                 <div class="item">
-                    <img src="https://unsplash.it/100/100?image=1005" alt="" class="ui avatar image">
-                    <div class="content"><a href="#" class="header">wender76</a></div>
+                    <img src="https://unsplash.it/100/100?image=1005" th:src="@{${blog.user.avatar}}" alt="" class="ui avatar image">
+                    <div class="content"><a href="#" class="header" th:text="${blog.user.nickname}">wender76</a></div>
                 </div>
                 <div class="item">
-                    <i class="calendar icon"></i> 2020-5-1
+                    <i class="calendar icon"></i> <span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2020-5-1</span>
                 </div>
                 <div class="item">
-                    <i class="eye icon"></i> 1111
+                    <i class="eye icon"></i> <span th:text="${blog.views}">1111</span>
                 </div>
             </div>
         </div>
@@ -62,18 +62,20 @@
 
         <!--中间内容图片开始-->
         <div class="ui attached segment">
-            <img src="https://unsplash.it/800/450?image=1005" alt="" class="ui fluid rounded image">
+            <img src="https://unsplash.it/800/450?image=1005" th:src="@{${blog.firstPicture}}" alt="" class="ui fluid rounded image">
         </div>
         <!--中间内容图片结束-->
 
         <!--中间内容博客内容开始-->
         <div class="ui attached padded segment">
             <div class="ui right aligned basic segment">
-                <div class="ui green basic label">转载</div>
+                <div class="ui green basic label" th:text="${blog.flag}">转载</div>
             </div>
 
+            <h2 class="ui center aligned header" th:text="${blog.title}">清单</h2>
+
             <!--博客具体内容-->
-            <div id="m-id-content" class="typo typo-selection js-toc-content m-padded-left-right-responsive m-padded-large">
+            <div id="m-id-content" class="typo typo-selection js-toc-content m-padded-left-right-responsive m-padded-large" th:text="${blog.content}">
                 <h2 id="section">一、关于 <i class="serif">Typo.css</i></h2>
                 <pre><code class="language-css">p { color: red }</code></pre>
 
@@ -184,7 +186,7 @@
             </div><br>
             <!--标签-->
             <div class=".m-padded-left-right-responsive">
-                <div class="ui basic teal left pointing label">java</div>
+                <div class="ui basic teal left pointing label" th:each="tag : ${blog.tags}" th:text="${tag.name}">java</div>
             </div>
             <!--赞赏-->
             <div class="ui center aligned basic segment">
@@ -194,11 +196,11 @@
                 <div class="ui orange basic label">
                     <div class="ui images" style="font-size: inherit !important;">
                         <div class="image">
-                            <img src="../static/images/vx.png" alt="" class="ui rounded bordered image" style="width: 120px">
+                            <img src="../static/images/vx.png" th:src="@{/images/vx.png}" alt="" class="ui rounded bordered image" style="width: 120px">
                             <div>支付宝</div>
                         </div>
                         <div class="image">
-                            <img src="../static/images/vx.png" alt="" class="ui rounded bordered image" style="width: 120px">
+                            <img src="../static/images/vx.png" th:src="@{/images/vx.png}" alt="" class="ui rounded bordered image" style="width: 120px">
                             <div>微信</div>
                         </div>
                     </div>
@@ -213,14 +215,14 @@
             <div class="ui middle aligned grid">
                 <div class="eleven wide column">
                     <ul class="list">
-                        <li>作者：wender76</li>
-                        <li>发表时间：2020-05-01</li>
-                        <li>版权声明：</li>
-                        <li>转载说明：请在文末添加二维码</li>
+                        <li>作者：<span th:text="${blog.user.nickname}">wender76</span><a href="#" th:href="@{/about}" target="_blank">(联系作者)</a></li>
+                        <li>发表时间：<span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2020-05-01</span></li>
+                        <li>版权声明：自由转载-非商用-保持著名</li>
+                        <li>转载说明：请在文末添加作者二维码</li>
                     </ul>
                 </div>
                 <div class="five wide column">
-                    <img src="../static/images/vx.png" alt="" class="ui right floated rounded bordered image" style="width: 110px">
+                    <img src="../static/images/vx.png" th:src="@{/images/vx.png}" alt="" class="ui right floated rounded bordered image" style="width: 110px">
                 </div>
             </div>
         </div>
