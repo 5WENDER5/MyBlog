@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/dist/semantic/semantic.min.css">
     <link rel="stylesheet" href="../static/css/typo.css">
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
     <link rel="stylesheet" href="../static/css/me1.css">
     <link rel="stylesheet" href="../static/lib/prism/prism.css">
     <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css">
@@ -75,7 +76,7 @@
             <h2 class="ui center aligned header" th:text="${blog.title}">清单</h2>
 
             <!--博客具体内容-->
-            <div id="m-id-content" class="typo typo-selection js-toc-content m-padded-left-right-responsive m-padded-large" th:text="${blog.content}">
+            <div id="m-id-content" class="typo typo-selection js-toc-content m-padded-left-right-responsive m-padded-large" th:utext="${blog.content}">
                 <h2 id="section">一、关于 <i class="serif">Typo.css</i></h2>
                 <pre><code class="language-css">p { color: red }</code></pre>
 
@@ -396,7 +397,7 @@
 <script src="../static/lib/qrcode/qrcode.min.js"></script>
 <script src="../static/lib/waypoints/waypoints.min.js"></script>
 <!--/*/</th:block>/*/-->
-<script>
+<script th:inline="javascript">
     $('.m-menu.m-toggle').click(function () {
         $('.m-item').toggleClass('m-mobile-hide');
     });
@@ -432,8 +433,10 @@
 
     //二维码生成
 
+    var serurl = "127.0.0.1:8080";//这个是域名
+    var url = /*[[@{/blog/{id}(id=${blog.id})}]]*/"";
     var qrcode = new QRCode("qrcode", {
-        text: "http://jindo.dev.naver.com/collie",
+        text: serurl+url,
         width: 100,
         height: 100,
         colorDark : "#000000",
