@@ -10,13 +10,13 @@
 <body>
 
 <!--导航-->
-<nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+<nav th:replace="_fragments :: menu(4)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">Blog</h2>
             <a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
-            <a href="#" class="active m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="clone icon"></i>归档</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="info icon"></i>关于我</a>
             <div class="right m-item item m-mobile-hide">
@@ -41,167 +41,23 @@
                     <h3 class="ui teal header">归档</h3>
                 </div>
                 <div class="right aligned column">
-                    共 <h2 class="ui orange header m-inline-block m-text-thin">114</h2> 篇博客
+                    共 <h2 class="ui orange header m-inline-block m-text-thin" th:text="${blogCount }">114</h2> 篇博客
                 </div>
             </div>
         </div>
 
-        <h2 class="ui center aligned header">2020</h2>
+        <th:block th:each="item : ${archiveMap}">
+        <h2 class="ui center aligned header" th:text="${item.key}">2020</h2>
         <div class="ui fluid vertical menu">
-            <a href="#" target="_blank" class="item">
+            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item" th:each="blog : ${item.value}">
                   <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
+                      <i class="mini teal circle icon"></i> <span th:text="${blog.title}">xiuxiuxiuixu</span>
+                      <div class="ui teal basic left pointing label m-padded-mini" th:text="${#dates.format(blog.updateTime,'MMdd')}">05月05日</div>
                   </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-            <a href="#" target="_blank" class="item">
-                  <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
-                  </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-            <a href="#" target="_blank" class="item">
-                  <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
-                  </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-            <a href="#" target="_blank" class="item">
-                  <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
-                  </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-            <a href="#" target="_blank" class="item">
-                  <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
-                  </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
+                <div class="ui orange basic left pointing label m-padded-mini" th:text="${blog.flag}">原创</div>
             </a>
         </div>
-
-        <h2 class="ui center aligned header">2019</h2>
-        <div class="ui fluid vertical menu">
-            <a href="#" target="_blank" class="item">
-                  <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
-                  </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-            <a href="#" target="_blank" class="item">
-                  <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
-                  </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-            <a href="#" target="_blank" class="item">
-                  <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
-                  </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-            <a href="#" target="_blank" class="item">
-                  <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
-                  </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-            <a href="#" target="_blank" class="item">
-                  <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
-                  </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-        </div>
-
-        <h2 class="ui center aligned header">2018</h2>
-        <div class="ui fluid vertical menu">
-            <a href="#" target="_blank" class="item">
-                  <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
-                  </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-            <a href="#" target="_blank" class="item">
-                  <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
-                  </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-            <a href="#" target="_blank" class="item">
-                  <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
-                  </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-            <a href="#" target="_blank" class="item">
-                  <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
-                  </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-            <a href="#" target="_blank" class="item">
-                  <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
-                  </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-        </div>
-
-        <h2 class="ui center aligned header">2017</h2>
-        <div class="ui fluid vertical menu">
-            <a href="#" target="_blank" class="item">
-                  <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
-                  </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-            <a href="#" target="_blank" class="item">
-                  <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
-                  </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-            <a href="#" target="_blank" class="item">
-                  <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
-                  </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-            <a href="#" target="_blank" class="item">
-                  <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
-                  </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-            <a href="#" target="_blank" class="item">
-                  <span>
-                      <i class="mini teal circle icon"></i> xiuxiuxiuixu
-                      <div class="ui teal basic left pointing label m-padded-mini">05月05日</div>
-                  </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-        </div>
-
+        </th:block>
 
     </div>
 </div>
@@ -242,9 +98,11 @@
     </div>
 
 </footer>
+<!--/*/<th:block th:replace="_fragments :: script">/*/-->
 <script src="../static/js/jquery-3.4.1.min.js"></script>
 <script src="../static/js/jquery.min.js"></script>
 <script src="../static/js/semantic.min.js"></script>
+<!--/*/</th:block>/*/-->
 <!--<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>-->
 <!--<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>-->
 <!--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
