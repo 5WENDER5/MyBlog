@@ -3,3 +3,7 @@ spring:
     mode: HtML
   profiles:
     active: dev #指定要使用那个配置只要写-后面的就行
+
+
+
+comment.avatar: /images/ww.jpg
