@@ -1,7 +1,9 @@
 package com.example.blog.web;
 
+import com.example.blog.po.Tag;
 import com.example.blog.po.Type;
 import com.example.blog.service.BlogService;
+import com.example.blog.service.TagService;
 import com.example.blog.service.TypeService;
 import com.example.blog.vo.BlogQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,25 +18,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 @Controller
-public class TypeShowController {
+public class TagShowController {
 
     @Autowired
-    private TypeService typeService;
+    private TagService tagService;
     @Autowired
     private BlogService blogService;
 
-    @GetMapping("types/{id}")
+    @GetMapping("tags/{id}")
     public String types(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                         @PathVariable Long id, Model model) {
-        List<Type> types = typeService.listTypeTop(10000);
+        List<Tag> tags = tagService.listTagTop(10000);
         if(id == -1) {
-            id = types.get(0).getId();
+            id = tags.get(0).getId();
         }
-        BlogQuery blogQuery = new BlogQuery();
-        blogQuery.setTypeId(id);
-        model.addAttribute("types", types);
-        model.addAttribute("page", blogService.listBlog(pageable,blogQuery));
-        model.addAttribute("activeTypeId", id);
-        return "types";
+        model.addAttribute("tags", tags);
+        model.addAttribute("page", blogService.listBlog(id, pageable));
+        model.addAttribute("activeTagId", id);
+        return "tags";
     }
 }
